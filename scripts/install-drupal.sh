@@ -37,7 +37,6 @@ else
   echo "Please, setup variables and start again."
   exit
 fi
-exit
 
 
 # Directories
@@ -96,7 +95,18 @@ mysql -u$ENVDBUSER -p$ENVDBPASSWORD -e"GRANT ALL ON $DBNAME.* TO '$DBUSER'@'$DBH
 echo "Making Drupal based on profile..."
 
 drush make initial-site.make ../$ROOTDIR --prepare-install
- 
+drush cc all 
+
+
+# File changes
+##########################################################
+DFLTFOLDERPATH="$ROOTDIR/sites/default"
+
+chmod -R 775 ../$ROOTDIR
+
+cp modules_enabled.txt ../$DFLTFOLDERPATH
+cp modules_disabled.txt ../$DFLTFOLDERPATH
+cp adjust-db-to-site.sh $ROOTDIR/script
 cd ../$ROOTDIR;
  
 
@@ -104,21 +114,19 @@ cd ../$ROOTDIR;
 ##########################################################
 echo "Installing Drupal core..."
 drush site-install -y standard --account-mail=$ADMINEMAIL --account-name=$ADMINUSERNAME --account-pass=$ADMINPASSWORD --site-name=$SITENAME --site-mail=$ADMINEMAIL --locale=$SITELOCALE --db-url=mysql://$DBUSER:$DBPASSWORD@$DBHOST/$DBNAME;
+drush cc all 
+
 
 # Enabling modules
 ##########################################################
-DFLTFOLDERPATH="$ROOTDIR/sites/default"
-
-cp modules_enabled.txt ../$DFLTFOLDERPATH
-cp modules_disabled.txt ../$DFLTFOLDERPATH
-
-cd ../DFLTFOLDERPATH
 
 echo ""
 echo "Updating modules enabled ..."
+cd ../$DFLTFOLDERPATH
 drush cc all
 drush dis `cat modules_disabled.txt` -y
 drush en `cat modules_enabled.txt` -y
+drush cc all
 
 echo ""
 echo "Applying database updates ..."
@@ -131,7 +139,7 @@ drush cc all
 echo ""
 echo "Pre configure settings ..."
 
-drush vset -y site_slogan $SITESLOGAN;
+drush vset site_slogan "$SITESLOGAN"
 
 drush vset file_public_path "sites/$SITENAME/files"
 drush vset file_private_path "sites/$SITENAME/private"
