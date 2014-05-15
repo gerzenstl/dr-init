@@ -1,6 +1,5 @@
- dr-init
- ======
+## dr-init
 
-A Drupal kit generator
+A simple Drupal kit generator
 
 This is a work in progress
