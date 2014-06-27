@@ -6,8 +6,7 @@ if [ $# -lt 1 ]
 then
   echo ""
   echo "USAGE: $0 [Site-name]"
-  echo "Site-Name is the non-fully qualified site name such as connect or euconsumer."
-  echo "Use letters and '_' (underscore) chars for site-name."
+  echo "Site-Name is machine name of the site. Use letters and '_' (underscore) chars."
   echo ""
   exit
 fi
