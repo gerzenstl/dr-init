@@ -14,6 +14,8 @@ This is a work in progress. Used to have some fun with good things that a Drupal
 
 4) Run: `bash install-drupal.sh {site name of the drupal project}`
 
-5) Setup a Vhost & update the hosts file.
+5) Check the output.
 
-6) Use the site!
+6) Setup a Vhost & update the hosts file.
+
+7) Use the site!
