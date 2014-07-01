@@ -2,7 +2,7 @@
 
 A simple Drupal kit generator.
 
-This is a work in progress. Used to have some fun with good things that a Drupal dev can use: Drush, Bash, Drupal make
+This is a work in progress. Used to have some fun with good things that a Drupal dev can use: Drush, Bash, Drupal make and many other things coming soon.
 
 ### Usage
 
